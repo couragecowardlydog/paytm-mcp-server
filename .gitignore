@@ -3,4 +3,4 @@ dist/
 .env
 *.js.map
 *.tsbuildinfo
-docs
+docs.vscode/
