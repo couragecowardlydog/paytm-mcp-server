@@ -10,7 +10,7 @@
 
 **Please do NOT report security vulnerabilities through public GitHub issues.**
 
-Instead, please email **security@example.com** with:
+Instead, please use [GitHub Security Advisories](https://github.com/vivekanandan-sakthivelu/paytm-mcp-server/security/advisories/new) to report vulnerabilities privately. Include:
 
 - Description of the vulnerability
 - Steps to reproduce
