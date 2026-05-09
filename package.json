@@ -34,12 +34,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/vivekanandan-sakthivelu/paytm-mcp-server.git"
+    "url": "https://github.com/couragecowardlydog/paytm-mcp-server.git"
   },
   "bugs": {
-    "url": "https://github.com/vivekanandan-sakthivelu/paytm-mcp-server/issues"
+    "url": "https://github.com/couragecowardlydog/paytm-mcp-server/issues"
   },
-  "homepage": "https://github.com/vivekanandan-sakthivelu/paytm-mcp-server#readme",
+  "homepage": "https://github.com/couragecowardlydog/paytm-mcp-server#readme",
   "engines": {
     "node": ">=18.0.0"
   },

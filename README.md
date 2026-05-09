@@ -1,6 +1,6 @@
 # Paytm Money MCP Server
 
-[![CI](https://github.com/vivekanandan-sakthivelu/paytm-mcp-server/actions/workflows/ci.yml/badge.svg)](https://github.com/vivekanandan-sakthivelu/paytm-mcp-server/actions/workflows/ci.yml)
+[![CI](https://github.com/couragecowardlydog/paytm-mcp-server/actions/workflows/ci.yml/badge.svg)](https://github.com/couragecowardlydog/paytm-mcp-server/actions/workflows/ci.yml)
 [![npm version](https://img.shields.io/npm/v/paytm-money-mcp.svg)](https://www.npmjs.com/package/paytm-money-mcp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D18-brightgreen.svg)](https://nodejs.org)
