@@ -1,0 +1,14 @@
+{
+  "servers": {
+    "paytm-money": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["${workspaceFolder}/dist/index.js"],
+      "env": {
+        "PAYTM_API_KEY": "f6c35e4f17e348f4861b750a2f33b5cc",
+        "PAYTM_API_SECRET": "4378ba9720b64b179c9f99a6fb6acfdb",
+        "PAYTM_EXCLUDED_TOOLS": ""
+      }
+    }
+  }
+}
