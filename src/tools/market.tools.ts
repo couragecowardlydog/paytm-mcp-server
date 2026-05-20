@@ -32,13 +32,13 @@ export function registerMarketTools(
 ): void {
   // Wrap client methods with validation
   const origGetLivePrice = client.getLivePrice.bind(client);
-  client.getLivePrice = async (publicAccessToken: string, mode: string, pref: unknown[]) => {
-    if (!publicAccessToken) {
-      throw new Error("Not authenticated: public_access_token is required");
+  client.getLivePrice = async (readAccessToken: string, mode: string, pref: unknown[]) => {
+    if (!readAccessToken) {
+      throw new Error("Not authenticated: read_access_token is required");
     }
     tokenManager.assertNotExpired();
     const validated = LivePriceInputSchema.parse({ mode, pref });
-    return origGetLivePrice(publicAccessToken, validated.mode, validated.pref);
+    return origGetLivePrice(readAccessToken, validated.mode, validated.pref);
   };
 
   const origSearchInstruments = client.searchInstruments.bind(client);
@@ -73,7 +73,7 @@ export function registerMarketTools(
       return withErrorHandling(async () => {
         tokenManager.assertAuthenticated();
         tokenManager.assertNotExpired();
-        const token = tokenManager.getPublicToken()!;
+        const token = tokenManager.getReadToken()!;
         return client.getLivePrice(token, mode, pref);
       });
     },

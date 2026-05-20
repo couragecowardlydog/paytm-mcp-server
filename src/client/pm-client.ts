@@ -52,7 +52,7 @@ export class PaytmClient {
   async getPositions(readAccessToken: string): Promise<PaytmPosition[]> {
     return this.withRetry(() =>
       this.client
-        .get("/data/v1/position", {
+        .get("/orders/v1/position", {
           headers: { "x-jwt-token": readAccessToken },
         })
         .then((res: AxiosResponse) => res.data.data),
@@ -132,11 +132,14 @@ export class PaytmClient {
     );
   }
 
-  async getLivePrice(publicAccessToken: string, _mode: string, _pref: unknown[]): Promise<unknown> {
+  async getLivePrice(readAccessToken: string, mode: string, pref: unknown[]): Promise<unknown> {
+    const prefStr = (pref as Array<{ exchange: string; mode: string; security_id: string }>)
+      .map((p) => `${p.exchange}:${p.security_id}:${p.mode}`)
+      .join(",");
     return this.withRetry(() =>
       this.client
-        .get("/data/v1/price/live", {
-          headers: { "x-jwt-token": publicAccessToken },
+        .get(`/data/v1/price/live?mode=${mode}&pref=${prefStr}`, {
+          headers: { "x-jwt-token": readAccessToken },
         })
         .then((res: AxiosResponse) => res.data),
     );
@@ -151,7 +154,7 @@ export class PaytmClient {
     if (exchange) params.exchange = exchange;
     return this.withRetry(() =>
       this.client
-        .get("/data/v1/scrips/get-security-master", {
+        .get(`/data/v1/scrips/${query}`, {
           headers: { "x-jwt-token": publicAccessToken },
           params,
         })
@@ -164,7 +167,7 @@ export class PaytmClient {
   async createGtt(accessToken: string, params: Record<string, unknown>): Promise<unknown> {
     return this.withRetry(() =>
       this.client
-        .post("/orders/v1/gtt/create", params, {
+        .post("/gtt/v1/gtt", params, {
           headers: { "x-jwt-token": accessToken },
         })
         .then((res: AxiosResponse) => res.data),
@@ -174,7 +177,7 @@ export class PaytmClient {
   async getGtt(accessToken: string, id: number): Promise<unknown> {
     return this.withRetry(() =>
       this.client
-        .get(`/orders/v1/gtt/${id}`, {
+        .get(`/gtt/v1/gtt/${id}`, {
           headers: { "x-jwt-token": accessToken },
         })
         .then((res: AxiosResponse) => res.data),
@@ -184,7 +187,7 @@ export class PaytmClient {
   async updateGtt(accessToken: string, params: Record<string, unknown>): Promise<unknown> {
     return this.withRetry(() =>
       this.client
-        .put("/orders/v1/gtt/update", params, {
+        .put("/gtt/v1/gtt", params, {
           headers: { "x-jwt-token": accessToken },
         })
         .then((res: AxiosResponse) => res.data),
@@ -194,7 +197,7 @@ export class PaytmClient {
   async deleteGtt(accessToken: string, id: number): Promise<unknown> {
     return this.withRetry(() =>
       this.client
-        .delete(`/orders/v1/gtt/${id}`, {
+        .delete(`/gtt/v1/gtt/${id}`, {
           headers: { "x-jwt-token": accessToken },
         })
         .then((res: AxiosResponse) => res.data),
@@ -204,7 +207,7 @@ export class PaytmClient {
   async getGttAggregate(accessToken: string): Promise<unknown> {
     return this.withRetry(() =>
       this.client
-        .get("/orders/v1/gtt/aggregate", {
+        .get("/gtt/v1/gtt/aggregate", {
           headers: { "x-jwt-token": accessToken },
         })
         .then((res: AxiosResponse) => res.data),
@@ -213,12 +216,13 @@ export class PaytmClient {
 
   async getOptionChain(
     publicAccessToken: string,
-    _params: Record<string, unknown>,
+    params: Record<string, unknown>,
   ): Promise<unknown> {
     return this.withRetry(() =>
       this.client
         .get("/fno/v1/option-chain", {
           headers: { "x-jwt-token": publicAccessToken },
+          params,
         })
         .then((res: AxiosResponse) => res.data),
     );
@@ -227,7 +231,7 @@ export class PaytmClient {
   async getCharges(readAccessToken: string, params: Record<string, unknown>): Promise<unknown> {
     return this.withRetry(() =>
       this.client
-        .post("/charges/v1/charges-info", params, {
+        .post("/accounts/v1/charges/info", params, {
           headers: { "x-jwt-token": readAccessToken },
         })
         .then((res: AxiosResponse) => res.data),
